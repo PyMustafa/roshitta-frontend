@@ -128,14 +128,13 @@ const RegisterForm = () => {
 
             <input
 
-              type="email"
+              type="tel"
 
-              id="email"
+              id="phoneNumber"
 
-              name="email"
+              name="phoneNumber"
 
-              value={formData.email}
-
+              value={formData.phoneNumber}
               onChange={handleChange}
 
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5F6FFF] focus:border-transparent"
