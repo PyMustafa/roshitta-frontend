@@ -110,7 +110,7 @@ const Navbar = () => {
           <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Home</a>
 
           {/* Mobile dropdown */}
-          <div className="relative" ref={dropdownRef}> 
+          <div className="relative" ref={mobileDropdownRef}> 
             <button
               onClick={handleToggleSpecialties}
               className="flex items-center text-gray-700 hover:text-[#09e5ab]"
