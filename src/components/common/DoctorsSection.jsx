@@ -15,7 +15,7 @@ const DoctorsSection = () => {
 
 
         <div className="mt-4 sm:mt-6 flex justify-center">
-          <button className="bg-gray-100 hover:bg-[#09e5ab] hover:text-white transition-colors cursor-pointer text-gray-600 px-8 py-2 md:px-12 md:py-3 rounded-full mt-6 md:mt-10 text-sm md:text-base">
+          <button className="bg-gray-100  hover:text-white transition-colors cursor-pointer text-gray-600 px-8 py-2 md:px-12 md:py-3 rounded-full mt-6 md:mt-10 text-sm md:text-base">
             more 
           </button>
         </div>
