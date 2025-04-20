@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FiLock } from 'react-icons/fi';
 import { FaUserPlus } from 'react-icons/fa';
-import UserMenu from './UserMenu';
+// import UserMenu from './UserMenu';
 
 const Navbar = () => {
   const [showSpecialties, setShowSpecialties] = useState(false);
@@ -75,9 +75,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
-          <UserMenu />
+          {/* <UserMenu /> */}
 
-          {/* <a
+          <a
             href="#"
             className="flex items-center px-4 py-2 text-sm rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white transition duration-300"
           >
@@ -90,7 +90,7 @@ const Navbar = () => {
           >
             <FaUserPlus className="w-5 h-5 mr-2" />
             Register
-          </a> */}
+          </a>
         </div>
       </div>
 
