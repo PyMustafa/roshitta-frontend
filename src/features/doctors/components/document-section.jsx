@@ -19,21 +19,21 @@ export default function DocumentSection() {
       </CardHeader>
       <CardContent className="space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-2">Document</label>
-          <Input defaultValue="Document" />
+          <label className="block text-sm font-medium mb-2">Bio</label>
+          <Input placeholder="Enter your bio here" />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Starting Price</label>
-          <Input defaultValue="1500" type="number" />
+          <label className="block text-sm font-medium mb-2">Consultation Fees</label>
+          <Input placeholder="500" type="number" />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Description</label>
+          <label className="block text-sm font-medium mb-2">Education</label>
           <div className="relative">
             <Textarea
               className="min-h-[150px]"
-              placeholder = "Write a short description about your services"
+              placeholder = "Write a short description about your education"
             />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             </div>

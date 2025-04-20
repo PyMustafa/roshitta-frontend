@@ -52,17 +52,17 @@ export default function PersonalDetails() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Designation</label>
+            <label className="block text-sm font-medium mb-2">Speciality</label>
             <Input placeholder="BDS, MDS - Oral & Maxillofacial" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Mobile Number</label>
-            <Input placeholder="9988776655" />
+            <label className="block text-sm font-medium mb-2">Phone Number</label>
+            <Input placeholder="01xxxxxxxxx" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Registration Number</label>
+            <label className="block text-sm font-medium mb-2">License Number</label>
             <Input />
           </div>
         </div>
