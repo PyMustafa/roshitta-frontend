@@ -43,7 +43,7 @@ const Footer = () => {
 
       {/* Bottom copyright line */}
       <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-200 text-center text-sm text-black font-semibold">
-        <p>Copyright 2025 © Roshitta - All Right Reserved.</p>
+        <p>Copyright 2025 © Roshitta - All Rights Reserved.</p>
       </div>
     </footer>
   );
