@@ -4,7 +4,7 @@ import largeImage from '../../assets/HomePage/group_profiles.png';
 
 const HeaderSection = () => {
   return (
-    <div className="bg-[#5F6FFF] rounded-[10px] mx-4 sm:mx-8 md:mx-16 lg:mx-32 mt-12 px-6 sm:px-10 md:px-16 py-10">
+    <div className="bg-[#5F6FFF] rounded-[10px] mx-4 sm:mx-8 md:mx-16 lg:mx-32 mt-26 px-6 sm:px-10 md:px-16 py-10">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12 max-w-7xl mx-auto">
         
         {/* Text Section */}
@@ -26,7 +26,7 @@ const HeaderSection = () => {
           </div>
 
           <div className="mt-4 sm:mt-6">
-            <button className="flex items-center justify-center gap-2 bg-white px-8 py-3 rounded-full text-[#595959] text-sm hover:scale-105 transition-all duration-300 mx-auto lg:mx-0">
+            <button className="flex items-center justify-center cursor-pointer gap-2 bg-white px-8 py-3 rounded-full text-[#595959] text-sm hover:scale-105 transition-all duration-300 mx-auto lg:mx-0">
               Book appointment
               <span className="text-base">→</span>
             </button>
