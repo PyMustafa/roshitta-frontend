@@ -13,16 +13,16 @@ export default function DoctorProfile({ doctor }) {
         {doctor?.name || "Unknown Doctor"}
         </h1>
     </div>
-    <div className="doctor-profile flex flex-col md:flex-row items-start md:items-center bg-white  rounded-lg border border-gray-200 m-[30px] lg:mx-[120px] mx-1 p-[50px]">
+    <div className="doctor-profile flex justify-around flex-col md:flex-row items-center bg-white  rounded-lg border border-gray-200 m-[30px] lg:mx-[120px] mx-1 p-[15px]">
       {/* doctor info section */}
-      <div className="flex items-center lg:grid:cols-12 grid-cols-3 w-100">
+      <div className="flex items-center w-100">
         <img
           src={doctor?.image || "https://via.placeholder.com/150"}
           alt="no image found"
           className="w-24 h-24 rounded-md object-cover "
         />
         <div className="ml-4">
-          <h2 className="text-lg font-semibold text-gray-700 flex items-center">
+          <h2 className="text-lg font-semibold text-gray-500 flex items-center">
             {doctor?.name || "Unknown Doctor"}
           </h2>
           <p className="text-sm text-gray-500">{doctor?.qualifications || "N/A"}</p>
@@ -37,9 +37,9 @@ export default function DoctorProfile({ doctor }) {
       </div>
 
       {/* patients && location section */}
-      <div className="mt-4 md:mt-0 md:ml-6 md:w-1/3  rounded-lg p-4">
+      <div className="mt-4 md:mt-0 md:ml-6 grid-cols-12 lg:grid-cols-3 rounded-lg p-0 p-4 w-100">
         <p className="text-sm text-gray-600 flex items-center">
-          <span className="material-icons text-purple-500 mr-2">person</span>
+          <span className="material-icons text-purple-500 mr-2"><i/></span>
           {doctor?.patients || "0"} Patients Treated
         </p>
         <p className="text-sm text-gray-600 flex items-center mt-2 bg-gray-100 p-4 rounded-md">
@@ -48,7 +48,7 @@ export default function DoctorProfile({ doctor }) {
       </div>
 
       {/* additional info section */}
-      <div className="mt-4 md:mt-0 md:ml-6 md:w-1/3 rounded-lg p-4">
+      <div className="mt-4 md:mt-0 md:ml-6 grid-cols-12 lg:grid-cols-3 rounded-lg p-0 p-4 w-100">
         <p className="text-sm text-gray-600 flex items-center">
           <span className="material-icons text-gray-500 mr-2"><i/></span>
           {doctor?.votes || "0"} Votes
@@ -66,10 +66,10 @@ export default function DoctorProfile({ doctor }) {
           {doctor?.price || "$0.00"}
         </p>
         <div className="flex mt-4">
-          <button className="text-sm text-blue-500 border border-blue-500 border-2 rounded-lg px-4 py-2 hover:bg-blue-500 hover:text-white">
+          <button className="text-blue-500 border border-blue-500 border-2 rounded-sm px-2 py-2 hover:bg-blue-500 hover:text-white text-xs">
             Add Feedback
           </button>
-          <button className="ml-2 text-sm text-white bg-blue-500 rounded-lg px-4 py-2 hover:bg-blue-600" onClick={handleScrollDown}>
+          <button className="ml-2 text-xs text-white bg-blue-500 rounded-sm px-2 py-2 hover:bg-blue-600" onClick={handleScrollDown}>
             Book Appointment
           </button>
         </div>
