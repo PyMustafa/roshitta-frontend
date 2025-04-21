@@ -13,13 +13,13 @@ export default function DoctorProfile({ doctor }) {
         {doctor?.name || "Unknown Doctor"}
         </h1>
     </div>
-    <div className="doctor-profile flex justify-around flex-col md:flex-row items-center bg-white  rounded-lg border border-gray-200 m-[30px] lg:mx-[120px] mx-1 p-[15px]">
+    <div className="doctor-profile flex flex-col md:flex-row items-center bg-white  rounded-lg border border-gray-200 m-[30px] lg:mx-[100px] mx-1 pe-0 pl-[60px]" >
       {/* doctor info section */}
-      <div className="flex items-center w-100">
+      <div className="flex items-center w-100 m-auto">
         <img
           src={doctor?.image || "https://via.placeholder.com/150"}
           alt="no image found"
-          className="w-24 h-24 rounded-md object-cover "
+          className="w-32 h-32 rounded-md object-cover"
         />
         <div className="ml-4">
           <h2 className="text-lg font-semibold text-gray-500 flex items-center">
@@ -66,10 +66,10 @@ export default function DoctorProfile({ doctor }) {
           {doctor?.price || "$0.00"}
         </p>
         <div className="flex mt-4">
-          <button className="text-blue-500 border border-blue-500 border-2 rounded-sm px-2 py-2 hover:bg-blue-500 hover:text-white text-xs">
+          <button className="text-blue-500 border border-blue-500 border-2 rounded-sm px-2 py-2 hover:bg-blue-500 hover:text-white text-sm">
             Add Feedback
           </button>
-          <button className="ml-2 text-xs text-white bg-blue-500 rounded-sm px-2 py-2 hover:bg-blue-600" onClick={handleScrollDown}>
+          <button className="ml-2 text-sm text-white bg-blue-500 rounded-sm px-2 py-2 hover:bg-blue-600" onClick={handleScrollDown}>
             Book Appointment
           </button>
         </div>
