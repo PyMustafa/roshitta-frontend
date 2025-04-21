@@ -4,12 +4,19 @@ export default function Checkout({ selectedClinic, selectedDay, selectedTime, pa
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const handleConfirmBooking = () => {
-    {/* make sure to pass the patient info object */}
+    {/* make sure to pass the patient info object 
+      const patientInfo = {
+        name: "patient name",
+        email: "patient email",
+        phone: "01234567890",
+      };
+
+      */}
     if (!paymentMethod) {
       alert("Please choose your payment method");
       return;
     }
-    alert(`Booking confirmed for ${patientInfo.name} at ${selectedTime}`);
+    alert(`Booking confirmed for ${patientInfo?.name || "patient name"} at ${selectedTime || "00:00"}`);
   };
 
   const handleCancelBooking = () => {
@@ -45,15 +52,15 @@ export default function Checkout({ selectedClinic, selectedDay, selectedTime, pa
           <h2 className="text-lg font-semibold text-gray-600">Patient Details</h2>
           <div className="mt-2">
             <h4 className="block text-sm text-gray-500 mb-1">Name</h4>
-            <p className="w-full px-4 py-2 text-sm">{patientInfo.name}</p>
+            <p className="w-full px-4 py-2 text-sm">{patientInfo?.name || "patient name"}</p>
           </div>
           <div className="mt-4">
             <h4 className="block text-sm text-gray-500 mb-1">Email</h4>
-            <p className="w-full px-4 py-2 text-sm">{patientInfo.email}</p>
+            <p className="w-full px-4 py-2 text-sm">{patientInfo?.email || "patient email"}</p>
           </div>
           <div className="mt-4">
             <h4 className="block text-sm text-gray-500 mb-1">Phone</h4>
-            <p className="w-full px-4 py-2 text-sm">{patientInfo.phone}</p>
+            <p className="w-full px-4 py-2 text-sm">{patientInfo?.phone || "01234567890"}</p>
           </div>
         </div>
       </div>
@@ -106,7 +113,6 @@ export default function Checkout({ selectedClinic, selectedDay, selectedTime, pa
         >
           Cancel 
         </button>
-        <div>{typeof(patientInfo)}</div>
       </div>
     </div>
   );
