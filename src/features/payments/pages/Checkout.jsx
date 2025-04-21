@@ -106,7 +106,6 @@ export default function Checkout({ selectedClinic, selectedDay, selectedTime, pa
         >
           Cancel 
         </button>
-        <div>{typeof(patientInfo)}</div>
       </div>
     </div>
   );
