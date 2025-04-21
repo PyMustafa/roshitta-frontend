@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <p class="font-sans text-8xl text-blue-600/100 ">welcome to roshitta web app</p>
+      <p className="font-sans text-2xl text-blue-600/100 ">welcome to roshitta web app</p>
       <FontAwesomeIcon icon="user" className="text-blue-500 text-4xl" />
       <DoctorDashboard />
     </>
