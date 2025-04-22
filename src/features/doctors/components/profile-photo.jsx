@@ -28,14 +28,14 @@ export default function ProfilePhoto() {
   }
 
   return (
-    <Card>
+    <Card className="border-gray-200">
       <CardHeader>
         <CardTitle>Profile Photo</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col space-y-4">
           <div className="flex items-center gap-4">
-            <Button variant="outline" className="text-blue-500 border-blue-500 hover:bg-blue-50">
+            <Button variant="outline" className="text-primary-500 border-primary-500 hover:bg-primary-50">
               <label htmlFor="file-upload" className="cursor-pointer">
                 SELECT FILE
                 <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
@@ -60,7 +60,7 @@ export default function ProfilePhoto() {
                   <p className="text-sm">{file.name}</p>
                   <p className="text-xs text-gray-500">File size: {file.size}</p>
                 </div>
-                <button onClick={handleRemoveFile} className="text-red-500 hover:text-red-700">
+                <button onClick={handleRemoveFile} className="text-error-500 hover:text-error-700">
                   <X size={16} />
                 </button>
               </div>
