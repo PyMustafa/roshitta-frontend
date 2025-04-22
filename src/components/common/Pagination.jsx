@@ -40,7 +40,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </button>
       )}
 
-      {getPageNumbers()}
+      {/* For small screens, show only current page */}
+      <div className="block md:hidden w-7 h-7 rounded-full bg-[#5F6FFF] text-white font-medium flex items-center justify-center">
+        {currentPage}
+      </div>
+
+      {/* For medium and larger screens, show full pagination */}
+      <div className="hidden md:flex space-x-3">
+        {getPageNumbers()}
+      </div>
 
       {currentPage < totalPages && (
         <button
