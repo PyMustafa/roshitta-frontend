@@ -8,7 +8,7 @@ export default function DoctorProfile({ doctor }) {
   return (
 
     <>
-    <div className="w-[vh] bg-gray-200 text-center h-[130px] p-4">
+    <div className="w-screen bg-gray-200 text-center h-[130px] p-4">
         <h1 className="font-semibold text-gray-900 text-[40px] text-center">
         {doctor?.name || "Unknown Doctor"}
         </h1>
