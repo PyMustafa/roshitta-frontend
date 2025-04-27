@@ -1,5 +1,5 @@
 // All API endpoints in one centralized file
-export const API_BASE = 'api/v1';
+export const API_BASE = '/api/v1';
 
 // Auth endpoints
 export const AUTH = {
@@ -57,3 +57,21 @@ export const CLINICS = {
   },
 };
 
+// Medical endpoints
+export const MEDICAL = {
+  HISTORIES: {
+    LIST: `${API_BASE}/medical/medical-histories/`,
+    DETAIL: (id) => `${API_BASE}/medical/medical-histories/${id}/`,
+  },
+  MEDICINES: {
+    LIST: `${API_BASE}/medical/medicines/`,
+    DETAIL: (id) => `${API_BASE}/medical/medicines/${id}/`,
+  },
+  PRESCRIPTIONS: {
+    LIST: `${API_BASE}/medical/prescriptions/`,
+    DETAIL: (id) => `${API_BASE}/medical/prescriptions/${id}/`,
+    MEDICINES: (prescriptionId) => `${API_BASE}/medical/prescriptions/${prescriptionId}/medicines/`,
+    MEDICINE_DETAIL: (prescriptionId, medicineId) => 
+      `${API_BASE}/medical/prescriptions/${prescriptionId}/medicines/${medicineId}/`,
+  },
+};
