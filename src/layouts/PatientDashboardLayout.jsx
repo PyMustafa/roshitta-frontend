@@ -4,7 +4,7 @@ import PatientDashboard from '../features/patients/pages/PatientDashboard';
 import ProfileSettings from '../features/patients/pages/ProfileSettings';
 import AppointmentsList from '../features/patients/pages/AppointmentsList';
 import MedicalHistory from '../features/patients/pages/MedicalHistory';
-import Invoices from '../features/patients/pages/Invoices';
+import InvoicesPage from '../features/patients/pages/InvoicesPage';
 
 function PatientDashboardLayout() {
   return (
@@ -16,7 +16,7 @@ function PatientDashboardLayout() {
           <Route path="/dashboard" element={<PatientDashboard />} />
             <Route path="/appointments" element={<AppointmentsList />} />
             <Route path="/medical-history" element={<MedicalHistory />} />
-            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/invoices" element={<InvoicesPage />} />
             <Route path="/settings" element={<ProfileSettings />} />
 
 
