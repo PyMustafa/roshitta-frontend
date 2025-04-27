@@ -1,12 +1,15 @@
 // Axios base instance setup
 import axios from 'axios'
 
-const api = axios.create({
-  baseURL: 'http://localhost:3000/api', // Change this to your API base URL
+const clientApi = axios.create({
+  baseURL: 'http://localhost:8000/api/v1', 
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json'
   },
 })
 
-export default api
+//any reusable and basic configs will be here
+
+export default clientApi
