@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faHome } from '@fortawesome/free-solid-svg-icons'
-import DoctorDashboard from './features/doctors/pages/doctor-dashboard'
-
-// Add icons to the library for global usage
-library.add(faUser, faHome)
+import LoginPage from './features/auth/pages/LoginPage'
+import { AuthProvider } from './context/auth/AuthContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,8 +10,13 @@ function App() {
   return (
 
     <>
-      <p className="font-sans text-2xl text-blue-600/100 ">welcome to roshitta web app</p>
-      <FontAwesomeIcon icon="user" className="text-blue-500 text-4xl" />
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="*" element={<LoginPage />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </>
   )
 }
