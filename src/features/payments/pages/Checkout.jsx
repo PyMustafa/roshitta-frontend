@@ -9,6 +9,7 @@ export default function Checkout({ selectedClinic, selectedDay, selectedTime, pa
       alert("Please choose your payment method");
       return;
     }
+
     alert(`Booking confirmed for ${patientInfo.name} at ${selectedTime}`);
   };
 
