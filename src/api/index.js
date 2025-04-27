@@ -5,6 +5,7 @@ import * as appointments from './appointments';
 import * as profiles from './profiles';
 import * as clinics from './clinics';
 import * as medical from './medical';
+import * as notifications from './notifications';
 import * as endpoints from './endpoints';
 
 // Re-export everything
@@ -15,6 +16,7 @@ export {
   profiles,
   clinics,
   medical,
+  notifications,
   endpoints
 };
 

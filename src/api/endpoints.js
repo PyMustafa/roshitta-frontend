@@ -75,3 +75,13 @@ export const MEDICAL = {
       `${API_BASE}/medical/prescriptions/${prescriptionId}/medicines/${medicineId}/`,
   },
 };
+
+// Notification endpoints
+export const NOTIFICATIONS = {
+  LIST: `${API_BASE}/notifications/`,
+  DETAIL: (id) => `${API_BASE}/notifications/${id}/`,
+  MARK_READ: (id) => `${API_BASE}/notifications/${id}/mark_as_read/`,
+  MARK_UNREAD: (id) => `${API_BASE}/notifications/${id}/mark_as_unread/`,
+  MARK_ALL_READ: `${API_BASE}/notifications/mark_all_as_read/`,
+  UNREAD_COUNT: `${API_BASE}/notifications/unread_count/`,
+};
