@@ -45,3 +45,15 @@ export const PROFILES = {
   },
   SPECIALTIES: `${API_BASE}/profiles/specialties/`,
 };
+
+// Clinic endpoints
+export const CLINICS = {
+  ALL: `${API_BASE}/clinics/all/`,
+  DETAIL: (id) => `${API_BASE}/clinics/${id}/`,
+  WORKING_HOURS: {
+    LIST: `${API_BASE}/clinics/working-hours/`,
+    DETAIL: (id) => `${API_BASE}/clinics/working-hours/${id}/`,
+    BY_CLINIC: (clinicId) => `${API_BASE}/clinics/${clinicId}/working-hours/`,
+  },
+};
+
