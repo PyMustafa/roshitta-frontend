@@ -85,3 +85,21 @@ export const NOTIFICATIONS = {
   MARK_ALL_READ: `${API_BASE}/notifications/mark_all_as_read/`,
   UNREAD_COUNT: `${API_BASE}/notifications/unread_count/`,
 };
+
+// User endpoints
+export const USERS = {
+  LIST: `${API_BASE}/users/`,
+  DETAIL: (id) => `${API_BASE}/users/${id}/`,
+  ME: `${API_BASE}/users/me/`,
+  PHONE_VERIFICATION: {
+    REQUEST: `${API_BASE}/users/phone-verification/request/`,
+    VERIFY: `${API_BASE}/users/phone-verification/verify/`,
+  },
+};
+
+// Token endpoints
+export const TOKENS = {
+  OBTAIN: `${API_BASE}/token/`,
+  REFRESH: `${API_BASE}/token/refresh/`,
+  VERIFY: `${API_BASE}/token/verify/`,
+};
