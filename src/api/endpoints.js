@@ -28,3 +28,4 @@ export const APPOINTMENTS = {
   },
   SLOTS: `${API_BASE}/appointments/slots/`,
 };
+
