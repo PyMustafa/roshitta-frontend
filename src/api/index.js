@@ -7,6 +7,7 @@ import * as auth from './auth';
 export {
   api,
   auth,
+  appointments,
 };
 
 // Default export the api instance
