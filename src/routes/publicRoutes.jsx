@@ -22,7 +22,9 @@ const publicRoutes = [
       { path: 'doctors', element: <div> <Doctors /></div> }, 
       { path: 'about', element: <div> <AboutUs /></div> }, 
       { path: 'contact', element: <div><ContactUs /></div> }, 
-      { path: 'doctor-profile/:doctorId', element: <div><DoctorProfilePage/></div>}
+      { path: 'doctor-profile/:doctorId', element: <div><DoctorProfilePage/></div>},
+      { path: 'specialties/:specialtyId/doctors', element: <Doctors /> },
+
     ],
   },
 ];
