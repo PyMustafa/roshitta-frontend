@@ -215,7 +215,6 @@ const RegisterForm = () => {
             <option value="" disabled className="text-gray-400">Select Gender (Optional)</option>
             <option value="male" className="text-gray-800">Male</option>
             <option value="female" className="text-gray-800">Female</option>
-            <option value="other" className="text-gray-800">Other</option>
           </select>
         </div>
 
