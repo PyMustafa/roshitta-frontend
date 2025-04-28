@@ -3,8 +3,6 @@ import MedicalHistoryCard from '../components/MedicalHistoryCard';
 import MedicalHistoryDetails from '../components/MedicalHistoryDetails';
 import MedicalHistoryForm from "../components/MedicalHistoryForm";
 
-import { Sidebar } from '../components/Sidebar';
-
 const MedicalHistory = () => {
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -31,23 +29,21 @@ const MedicalHistory = () => {
   ];
 
   return (
-    <div className="my-6 container mx-auto grid grid-cols-4 gap-10">
-      <Sidebar className="hidden lg:block col-span-1" />
-
-      <div className="flex-1 p-6 border border-gray-300 col-span-3 my-4 rounded-xl">
+    <div className="w-full">
+      <div className="border border-gray-300 p-6 rounded-xl">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold text-gray-800">Medical History</h1>
-            <button 
+            <button
               onClick={() => setShowForm(true)}
-              className="bg-[#5F6FFF]  text-white px-4 py-2 rounded-md "
+              className="bg-[#5F6FFF] text-white px-4 py-2 rounded-md"
             >
               Add New Entry
             </button>
           </div>
 
           {showForm && (
-            <MedicalHistoryForm 
+            <MedicalHistoryForm
               onClose={() => setShowForm(false)}
               onSubmit={(data) => {
                 console.log(data);
@@ -56,18 +52,18 @@ const MedicalHistory = () => {
             />
           )}
 
-          <div className="">
+          <div>
             {selectedEntry && (
-              <MedicalHistoryDetails 
-                entry={selectedEntry} 
+              <MedicalHistoryDetails
+                entry={selectedEntry}
                 onClose={() => setSelectedEntry(null)}
               />
             )}
 
             <div className="mt-6 space-y-4">
               {medicalHistory.map((entry) => (
-                <MedicalHistoryCard 
-                  key={entry.id} 
+                <MedicalHistoryCard
+                  key={entry.id}
                   entry={entry}
                   onClick={() => setSelectedEntry(entry)}
                 />

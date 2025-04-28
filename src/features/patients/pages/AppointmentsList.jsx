@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AppointmentCard from '../components/AppointmentCard';
 import AppointmentDetails from '../components/AppointmentDetails';
-import { Sidebar } from '../components/Sidebar';
 
 const AppointmentsList = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -24,35 +23,29 @@ const AppointmentsList = () => {
   ];
 
   return (
-  
-    <div className=" my-6 container mx-auto  grid grid-cols-4  gap-10 ">
-
-      <Sidebar className="hidden lg:block col-span-1" />
-
-      <div className="flex-1 p-6 border border-gray-300 col-span-3 my-4 rounded-xl">
-
+    <div className="w-full">
+      <div className="border border-gray-300 p-6 rounded-xl">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">Appointments</h1>
 
-             <div className="">
-              <div className="">
-                 {selectedAppointment && (
-                  <AppointmentDetails appointment={selectedAppointment} />
-                )}
+          <div>
+            {selectedAppointment && (
+              <AppointmentDetails
+                appointment={selectedAppointment}
+                onPrescriptionClick={() => console.log('Viewing prescription')}
+              />
+            )}
 
-                <div className="mt-6 space-y-4">
-                  {appointments.map((appointment) => (
-                    <AppointmentCard 
-                      key={appointment.id} 
-                      appointment={appointment}
-                      onClick={() => setSelectedAppointment(appointment)}
-                    />
-                  ))}
-                </div>
-              </div>
-
+            <div className="mt-6 space-y-4">
+              {appointments.map((appointment) => (
+                <AppointmentCard
+                  key={appointment.id}
+                  appointment={appointment}
+                  onClick={() => setSelectedAppointment(appointment)}
+                />
+              ))}
             </div>
-
+          </div>
         </div>
       </div>
     </div>
