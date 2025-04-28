@@ -1,10 +1,17 @@
 import React from 'react';
 import ReservationTable from "../components/ReservationTable";
 import { Sidebar } from '../components/Sidebar';
+import { useAuth } from '../../../context/auth/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 
 
 function PatientDashboard() {
+  const { currentUser } = useAuth();
+  if (!currentUser || currentUser.user_type !== 'patient') {
+    return <Navigate to="/" replace />;
+  }
+
   return (
 
 //     <div className=" my-6 container mx-auto  grid grid-cols-4  gap-6">

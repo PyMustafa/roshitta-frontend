@@ -15,11 +15,8 @@ const doctorRoutes = [
   {
     path: 'doctor',
     element: (
-      <AuthGuard>
-        <RoleGuard allowedRoles={['doctor']}>
           <DoctorLayout />
-        </RoleGuard>
-      </AuthGuard>
+      
     ),
     children: [
       { path: '', element: <Navigate to="dashboard" replace /> },
