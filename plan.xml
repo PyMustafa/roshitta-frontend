@@ -1,0 +1,311 @@
+Frontend Implementation Plan for Email Verification
+1. Registration Flow with Email Verification
+A. Registration Component
+modify the registration form with these adjustments:
+Email input field (required)
+First name (required)
+Last name (required)
+Password (required)
+Confirm password (required)
+User type selection (required)
+Gender selection (optional)
+Submit button
+Registration form validation:
+Email format validation
+Password matching validation
+Required fields validation
+On successful registration:
+Store the tokens (access and refresh) in localStorage
+Display a success message
+Redirect to email verification page
+B. Email Verification Page
+Create an email verification page that:
+Shows the user's email
+Has an input for the verification code
+Has a "Verify" button
+Has a "Resend Code" button
+Displays appropriate loading states and error messages
+Verification code validation:
+Check if the code is not empty
+Check if the code is numeric
+On successful verification:
+Show a success message
+Redirect to the dashboard or profile page
+2. API Service Implementation
+A. Authentication Service
+Create a comprehensive auth service with methods for:
+ // Registration
+   register(userData) {
+     return api.post('/api/v1/users/auth/register/', userData);
+   }
+   
+   // Email verification methods
+   requestEmailVerification(email) {
+     return api.post('/api/v1/users/email-verification/request/', { email });
+   }
+   
+   verifyEmail(code) {
+     return api.post('/api/v1/users/email-verification/verify/', { verification_code: code });
+   }
+   
+   // Login, logout, token management
+   login(email, password) {...}
+   logout() {...}
+   refreshToken() {...}
+
+
+   2-Error handling for all API calls with specific error messages for:
+Invalid verification code
+Expired verification code
+Network errors
+Server errors
+3. Component Implementation
+A. EmailVerificationForm Component
+function EmailVerificationForm() {
+  const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { user } = useAuth(); // Custom hook for auth context
+  
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    try {
+      await authService.verifyEmail(code);
+      setSuccess(true);
+      // Redirect or update UI to show verification success
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Verification failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const handleResend = async () => {
+    setResendLoading(true);
+    setError(null);
+    
+    try {
+      await authService.requestEmailVerification(user.email);
+      // Show success notification
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Failed to resend verification code');
+    } finally {
+      setResendLoading(false);
+    }
+  };
+  
+  return (
+    <div className="email-verification-container">
+      <h1>Verify Your Email</h1>
+      <p>A verification code has been sent to {user.email}</p>
+      
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">Email verified successfully!</div>}
+      
+      <form onSubmit={handleVerify}>
+        <div className="form-group">
+          <label htmlFor="verification-code">Verification Code</label>
+          <input
+            id="verification-code"
+            type="text"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="Enter your 6-digit code"
+            required
+          />
+        </div>
+        
+        <button 
+          type="submit" 
+          className="verify-button"
+          disabled={loading}
+        >
+          {loading ? 'Verifying...' : 'Verify Email'}
+        </button>
+      </form>
+      
+      <button
+        onClick={handleResend}
+        className="resend-button"
+        disabled={resendLoading}
+      >
+        {resendLoading ? 'Sending...' : 'Resend Code'}
+      </button>
+    </div>
+  );
+}
+
+B. Registration Page with Verification Flow
+
+function RegistrationPage() {
+  const [formData, setFormData] = useState({
+    email: '',
+    first_name: '',
+    last_name: '',
+    password: '',
+    password_confirm: '',
+    user_type: 'patient',
+    gender: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [registered, setRegistered] = useState(false);
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Register the user
+      const response = await authService.register(formData);
+      
+      // Store tokens
+      localStorage.setItem('accessToken', response.data.tokens.access);
+      localStorage.setItem('refreshToken', response.data.tokens.refresh);
+      
+      // Store user info
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      // Request email verification
+      await authService.requestEmailVerification(formData.email);
+      
+      setRegistered(true);
+      // Redirect to email verification page
+      navigate('/verify-email');
+    } catch (err) {
+      setError(err.response?.data || 'Registration failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  if (registered) {
+    return <Navigate to="/verify-email" />;
+  }
+  
+  return (
+    <div className="registration-container">
+      <h1>Create an Account</h1>
+      
+      {error && <div className="error-message">{JSON.stringify(error)}</div>}
+      
+      <form onSubmit={handleSubmit}>
+        {/* Form fields for email, name, password, etc. */}
+        <button 
+          type="submit" 
+          className="register-button"
+          disabled={loading}
+        >
+          {loading ? 'Registering...' : 'Register'}
+        </button>
+      </form>
+      
+      <div className="login-link">
+        Already have an account? <Link to="/login">Log in</Link>
+      </div>
+    </div>
+  );
+}
+
+4. Protected Routes Implementation
+Create a system of protected routes that require email verification:
+function PrivateRoute({ children, requireEmailVerification = true }) {
+  const { user, isAuthenticated, isEmailVerified } = useAuth();
+  const location = useLocation();
+  
+  if (!isAuthenticated) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  
+  if (requireEmailVerification && !isEmailVerified) {
+    // Redirect to email verification if email is not verified
+    return <Navigate to="/verify-email" state={{ from: location }} replace />;
+  }
+  
+  return children;
+}
+
+5. Auth Context with Email Verification State
+Enhance your auth context to include email verification state:
+function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    // Initialize auth state from localStorage
+    const initAuth = async () => {
+      const storedUser = localStorage.getItem('user');
+      const accessToken = localStorage.getItem('accessToken');
+      
+      if (storedUser && accessToken) {
+        const userData = JSON.parse(storedUser);
+        setUser(userData);
+        setIsAuthenticated(true);
+        
+        // Check email verification status
+        try {
+          const response = await authService.checkEmailVerificationStatus();
+          setIsEmailVerified(response.data.is_verified);
+        } catch (error) {
+          console.error('Failed to check email verification:', error);
+        }
+      }
+      
+      setLoading(false);
+    };
+    
+    initAuth();
+  }, []);
+  
+  // Auth context value
+  const value = {
+    user,
+    isAuthenticated,
+    isEmailVerified,
+    loading,
+    login: async (email, password) => {
+      // Login logic
+    },
+    register: async (userData) => {
+      // Registration logic
+    },
+    verifyEmail: async (code) => {
+      // Email verification logic
+      try {
+        await authService.verifyEmail(code);
+        setIsEmailVerified(true);
+        return true;
+      } catch (error) {
+        throw error;
+      }
+    },
+    logout: () => {
+      // Logout logic
+    }
+  };
+  
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+By implementing this approach, you'll have a complete email verification system integrated with your registration flow. Users will be prompted to verify their email after registration, and sensitive parts of your application can be protected to require email verification before access is granted.
