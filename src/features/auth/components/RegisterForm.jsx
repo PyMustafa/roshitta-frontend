@@ -257,7 +257,7 @@ const RegisterForm = () => {
         </div>
 
         {/* Terms and Conditions */}
-        <div className="flex items-center pt-2">
+        {/* <div className="flex items-center pt-2">
           <input
             type="checkbox"
             id="terms"
@@ -267,7 +267,7 @@ const RegisterForm = () => {
           <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
             Please Read The Terms & Conditions
           </label>
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <button
