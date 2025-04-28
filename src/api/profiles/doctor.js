@@ -87,3 +87,4 @@ export const getMyClinics = async (params = {}) => {
     throw error.response?.data || error;
   }
 };
+

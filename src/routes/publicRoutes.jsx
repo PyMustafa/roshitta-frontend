@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import Doctors from '../pages/Doctors';
 import DoctorProfilePage from '../features/doctors/pages/DoctorProfilePage';
+import AboutUs from '../pages/AboutUs';
+import ContactUs from '../pages/ContactUs';
 
 // Lazy load public pages
 const HomePage = lazy(() => import('../pages/Home'));
@@ -16,11 +18,13 @@ const publicRoutes = [
     children: [
       { path: '', element: <HomePage /> },
       // Add more public routes here as needed
-      { path: 'clinics', element: <div>Clinics Page</div> }, // Placeholder
-      { path: 'doctors', element: <div> <Doctors /></div> }, // Placeholder
-      { path: 'about', element: <div>About Page</div> }, // Placeholder
-      { path: 'contact', element: <div>Contact Page</div> }, // Placeholder
-      { path: 'doctor-profile/:doctorId', element: <div><DoctorProfilePage/></div>}
+      { path: 'clinics', element: <div>Clinics Page</div> },
+      { path: 'doctors', element: <div> <Doctors /></div> }, 
+      { path: 'about', element: <div> <AboutUs /></div> }, 
+      { path: 'contact', element: <div><ContactUs /></div> }, 
+      { path: 'doctor-profile/:doctorId', element: <div><DoctorProfilePage/></div>},
+      { path: 'specialties/:specialtyId/doctors', element: <Doctors /> },
+
     ],
   },
 ];

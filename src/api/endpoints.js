@@ -9,6 +9,11 @@ export const AUTH = {
   FORGOT_PASSWORD: `${API_BASE}/users/auth/forgot-password/`,
   RESET_PASSWORD: `${API_BASE}/users/auth/reset-password/`,
   LOGOUT: `${API_BASE}/users/auth/logout/`,
+  EMAIL_VERIFICATION: {
+    REQUEST: `${API_BASE}/users/email-verification/request/`,
+    VERIFY: `${API_BASE}/users/email-verification/verify/`,
+    STATUS: `${API_BASE}/users/email-verification/status/`,
+  },
 };
 
 // Appointment endpoints

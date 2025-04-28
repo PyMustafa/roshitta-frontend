@@ -1,6 +1,7 @@
 import Navbar from '../components/common/Navbar';
 import DoctorsFilter from '../components/common/DoctorsFilter';
 import DoctorCard from '../components/common/DoctorCard';
+import Pagination from '../components/common/Pagination';
 import { useEffect, useState } from 'react';
 import { getDoctors } from '../api/profiles/doctor';
 import doc1 from '../assets/Doctors/doc1.png';
@@ -12,14 +13,38 @@ const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    search: '',
+    location: '',
+    gender: '',
+    specialty: ''
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 8; // You can adjust this number
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         setLoading(true);
-        const data = await getDoctors();   // هنا بتجيب الدكاترة من السيرفر
-        setDoctors(data.results);          // لو عندك pagination غالباً هيبقى data.results
-        console.log(data.results)
+        const params = {};
+        if (filters.search) params.search = filters.search;
+        if (filters.specialty) params['specialty__name'] = filters.specialty;
+        if (filters.gender) params.gender = filters.gender;
+        // Do NOT send location to API, filter on frontend
+        const data = await getDoctors(params);
+        let filteredDoctors = data.results;
+        if (filters.location) {
+          filteredDoctors = filteredDoctors.filter(doctor =>
+            Array.isArray(doctor.clinics) && doctor.clinics.some(clinic => clinic.city === filters.location)
+          );
+        }
+        // Filter by gender on the frontend if selected
+        if (filters.gender) {
+          filteredDoctors = filteredDoctors.filter(doctor => doctor.gender === filters.gender);
+        }
+        setDoctors(filteredDoctors);
+        setError(null);
+        setCurrentPage(1); // Reset to first page on filter change
       } catch (err) {
         console.error('Failed to fetch doctors:', err);
         setError(err.message || 'Something went wrong');
@@ -27,48 +52,41 @@ const Doctors = () => {
         setLoading(false);
       }
     };
-
     fetchDoctors();
-  }, []);
+  }, [filters]);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(doctors.length / cardsPerPage);
+  const paginatedDoctors = doctors.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-
-  // const doctors = [
-  //   { name: "Dr. Richard James", specialty: "General physician", available: true, image: doc1 },
-  //   { name: "Dr. Emily Larson", specialty: "Gynecologist", available: true, image: doc2 },
-  //   { name: "Dr. Sarah Patel", specialty: "Dermatologist", available: true, image: doc3 },
-  //   { name: "Dr. Christopher Lee", specialty: "Pediatrician", available: true, image: doc4 },
-  //   { name: "Dr. Michael Brown", specialty: "Cardiologist", available: false, image: doc1 },
-  //   { name: "Dr. Jessica Wilson", specialty: "Neurologist", available: true, image: doc2 },
-  //   { name: "Dr. David Garcia", specialty: "Orthopedist", available: true, image: doc3 },
-  //   { name: "Dr. Olivia Martinez", specialty: "Psychiatrist", available: false, image: doc4 },
-  //   { name: "Dr. William Taylor", specialty: "Dentist", available: true, image: doc1 },
-  //   { name: "Dr. Sophia Anderson", specialty: "Ophthalmologist", available: true, image: doc2 },
-  //   { name: "Dr. James Thomas", specialty: "Endocrinologist", available: true, image: doc3 },
-  //   { name: "Dr. Emma Hernandez", specialty: "Rheumatologist", available: false, image: doc4 },
-  // ];
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
       <div className="flex flex-col lg:flex-row pt-16">
-        {/* Sidebar - Filters */}
         <div className="w-full lg:w-1/4 p-4 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] overflow-y-auto">
-          <DoctorsFilter />
+          <DoctorsFilter filters={filters} onChange={handleFilterChange} />
         </div>
-
-        {/* Main Content - Doctors Cards */}
         <div className="w-full lg:w-3/4 p-4 lg:p-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">Available Doctors ({doctors.length})</h1>
-          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {doctors.map((doctor, index) => (
+            {paginatedDoctors.map((doctor, index) => (
               <DoctorCard key={index} doctor={doctor} />
             ))}
           </div>
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </div>
       </div>
     </div>

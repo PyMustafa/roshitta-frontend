@@ -1,7 +1,10 @@
-import { LayoutDashboard, Calendar, Clock, MessageSquare, Settings, Menu, X, BookOpen, FileText } from "lucide-react"
+import { LayoutDashboard, Calendar, Clock, MessageSquare, Settings, Menu, X, BookOpen, FileText, Building2 } from "lucide-react"
 import doctorImage from "./doctor.jpg"
+import { Link, useLocation } from "react-router-dom"
 
 export function Sidebar() {
+  const location = useLocation();
+  const path = location.pathname;
 
   return (
     <>
@@ -128,46 +131,108 @@ export function Sidebar() {
           <nav className="flex-1 px-4 mt-2">
             <ul className="space-y-1">
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-white bg-blue-500 rounded-md">
+                <Link 
+                  to="/doctor/dashboard" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/dashboard') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <LayoutDashboard className="w-5 h-5 mr-3" />
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/appointments" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/appointments') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <Calendar className="w-5 h-5 mr-3" />
                   Appointments
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/clinics" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/clinics') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <Building2 className="w-5 h-5 mr-3" />
+                  My Clinics
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/doctor/timings" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/timings') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <Clock className="w-5 h-5 mr-3" />
                   Available Timings
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/messages" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/messages') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <MessageSquare className="w-5 h-5 mr-3" />
                   Messages
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/settings" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/settings') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <Settings className="w-5 h-5 mr-3" />
                   Profile Settings
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/specialties" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/specialties') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <BookOpen className="w-5 h-5 mr-3" />
                   Specialties & Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md">
+                <Link 
+                  to="/doctor/articles" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/articles') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
                   <FileText className="w-5 h-5 mr-3" />
                   Manage Article
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

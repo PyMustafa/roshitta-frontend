@@ -14,11 +14,12 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const navigate = useNavigate();
 
   // Check for existing session on mount
   useEffect(() => {
-    const checkAuthStatus = () => {
+    const checkAuthStatus = async () => {
       try {
         // Get user data from localStorage
         const userData = localStorage.getItem('user');
@@ -26,6 +27,14 @@ export const AuthProvider = ({ children }) => {
 
         if (userData && accessToken) {
           setCurrentUser(JSON.parse(userData));
+          
+          // Check email verification status
+          try {
+            const response = await auth.checkEmailVerificationStatus();
+            setIsEmailVerified(response.is_verified);
+          } catch (err) {
+            console.error('Failed to check email verification status:', err);
+          }
         }
       } catch (error) {
         console.error('Error restoring auth state:', error);
@@ -53,6 +62,14 @@ export const AuthProvider = ({ children }) => {
 
       // Update state with user info
       setCurrentUser(response.user);
+      
+      // Check email verification status
+      try {
+        const verificationStatus = await auth.checkEmailVerificationStatus();
+        setIsEmailVerified(verificationStatus.is_verified);
+      } catch (err) {
+        console.error('Failed to check email verification status:', err);
+      }
 
       return response;
     } catch (error) {
@@ -73,17 +90,56 @@ export const AuthProvider = ({ children }) => {
       const response = await auth.register(userData);
 
       // Store tokens and user data
-      localStorage.setItem('accessToken', response.access);
-      localStorage.setItem('refreshToken', response.refresh);
+      localStorage.setItem('accessToken', response.tokens.access);
+      localStorage.setItem('refreshToken', response.tokens.refresh);
       localStorage.setItem('user', JSON.stringify(response.user));
 
       // Update state with user info
       setCurrentUser(response.user);
+      setIsEmailVerified(false); // New user needs to verify email
+
+      // Request email verification code
+      await auth.requestEmailVerification(userData.email);
 
       return response;
     } catch (error) {
       console.error('Registration error:', error);
       setError(error.message || 'Failed to register');
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Verify email function
+  const verifyEmail = async (code) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await auth.verifyEmail(code);
+      setIsEmailVerified(true);
+      return response;
+    } catch (error) {
+      console.error('Email verification error:', error);
+      setError(error.message || 'Failed to verify email');
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Request email verification code
+  const requestVerificationCode = async (email) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await auth.requestEmailVerification(email);
+      return response;
+    } catch (error) {
+      console.error('Request verification code error:', error);
+      setError(error.message || 'Failed to request verification code');
       throw error;
     } finally {
       setIsLoading(false);
@@ -106,6 +162,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('user');
       setCurrentUser(null);
+      setIsEmailVerified(false);
       setIsLoading(false);
       navigate('/');
     }
@@ -116,11 +173,14 @@ export const AuthProvider = ({ children }) => {
     user: currentUser,
     currentUser,
     isAuthenticated: !!currentUser,
+    isEmailVerified,
     isLoading,
     error,
     login,
     logout,
     register,
+    verifyEmail,
+    requestVerificationCode,
   };
 
   return (

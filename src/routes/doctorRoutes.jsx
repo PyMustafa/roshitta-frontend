@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthGuard } from './guards/AuthGuard';
+import { EmailVerificationGuard } from './guards/EmailVerificationGuard';
 import { RoleGuard } from './guards/RoleGuard';
 import { DoctorLayout } from './layouts/DoctorLayout';
 
@@ -9,14 +10,20 @@ const DoctorDashboard = lazy(() => import('../features/doctors/pages/doctor-dash
 const AppointmentPage = lazy(() => import('../features/doctors/pages/AppointmentPage'));
 const ProfileSettings = lazy(() => import('../features/doctors/pages/profile-settings'));
 const DoctorProfilePage = lazy(() => import('../features/doctors/pages/DoctorProfilePage'));
+const ClinicPage = lazy(() => import('../features/doctors/pages/ClinicPage'));
 
 // Doctor routes configuration
 const doctorRoutes = [
   {
     path: 'doctor',
     element: (
-          <DoctorLayout />
-      
+      <AuthGuard>
+        <EmailVerificationGuard>
+          <RoleGuard allowedRoles={['doctor']}>
+            <DoctorLayout />
+          </RoleGuard>
+        </EmailVerificationGuard>
+      </AuthGuard>
     ),
     children: [
       { path: '', element: <Navigate to="dashboard" replace /> },
@@ -24,6 +31,7 @@ const doctorRoutes = [
       { path: 'appointments', element: <AppointmentPage /> },
       { path: 'profile', element: <DoctorProfilePage /> },
       { path: 'settings', element: <ProfileSettings /> },
+      { path: 'clinics', element: <ClinicPage /> },
     ],
   },
 ];
