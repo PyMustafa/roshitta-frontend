@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Gallery() {
+export default function Reviews() {
   return (
     <div>
       <p className="mt-2 text-gray-600">
