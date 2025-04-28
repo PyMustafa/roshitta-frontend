@@ -31,6 +31,8 @@ function RouterList() {
                         <DoctorDashboard/>
                         </ProtectedRoute>
             }/>
+            <Route/>
+            <Route path="doctors" element={<Doctors/>}/>
 
           </Routes>
         </AuthProvider>

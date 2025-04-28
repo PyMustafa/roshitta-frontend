@@ -9,7 +9,7 @@ export default function DoctorProfile({ doctor }) {
     <>
       <div className="w-screen bg-gray-200 text-center h-[130px] p-4">
         <h1 className="font-semibold text-gray-900 text-[40px] text-center">
-          {doctor?.name || "Unknown Doctor"}
+        {doctor?.first_name} {doctor?.last_name}
         </h1>
       </div>
       <div className="doctor-profile flex flex-col md:flex-row items-center bg-white  rounded-lg border border-gray-200 m-[30px] lg:mx-[100px] mx-1 p-5 pe-0 pl-[60px]">
@@ -18,16 +18,15 @@ export default function DoctorProfile({ doctor }) {
           <div className="flex items-center justify-center w-32 h-32 m-2 ">
             <img
               src={doctor?.image || "https://via.placeholder.com/150"}
-              alt="doctor photo"
-              className="w-32 h-32 rounded-md object-cover border"
+              className="w-32 h-32 rounded-md object-cover "
             />
           </div>
           <div className="ml-4">
             <h2 className="text-lg font-semibold text-gray-500 flex items-center">
-              {doctor?.name || "Unknown Doctor"}
+            {doctor?.first_name} {doctor?.last_name}
             </h2>
             <p className="text-sm text-blue-500">
-              {doctor?.specialties?.join(", ") || "No specialties"}
+              {doctor?.specialty_name || "No specialties"}
             </p>
             <StarRating rating={doctor?.rating || 2.4} />
           </div>
@@ -76,7 +75,7 @@ export default function DoctorProfile({ doctor }) {
             <span className="material-icons text-gray-500 mr-2">
               <i />
             </span>
-            {doctor?.price || "$0.00"}
+           $ {doctor?.consultation_fee || "$0.00"}
           </p>
           <div className="flex mt-4">
             <button className="text-blue-500 border border-blue-500 border-2 rounded-sm px-2 py-2 hover:bg-blue-500 hover:text-white text-sm">
