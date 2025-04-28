@@ -50,7 +50,7 @@ const Navbar = () => {
 
         {/* Desktop navigation links */}
         <div className="hidden md:flex space-x-8 items-center">
-          <a href="#" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Home</a>
+          <Link to="/" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Home</Link>
 
           <div className="relative" ref={dropdownRef}>
             <button
@@ -65,16 +65,16 @@ const Navbar = () => {
 
             {showSpecialties && (
               <div className="absolute z-10 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cardiology</a>
-                <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dermatology</a>
-                <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Neurology</a>
+                <Link to="/specialties/cardiology" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cardiology</Link>
+                <Link to="/specialties/dermatology" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dermatology</Link>
+                <Link to="/specialties/neurology" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Neurology</Link>
               </div>
             )}
           </div>
 
-          <a href="#" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Doctors</a>
-          <a href="#" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Contact Us</a>
-          <a href="#" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">About Us</a>
+          <Link to="/doctors" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Doctors</Link>
+          <Link to="/contact" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">Contact Us</Link>
+          <Link to="/about" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">About Us</Link>
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
@@ -104,7 +104,7 @@ const Navbar = () => {
       {/* Mobile menu content */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white py-4 px-6 space-y-4">
-          <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Home</a>
+          <Link to="/" className="block text-gray-700 hover:text-[#09e5ab]">Home</Link>
 
           <div className="relative" ref={dropdownRef}>
             <button
@@ -119,16 +119,16 @@ const Navbar = () => {
 
             {showSpecialties && (
               <div className="pl-4 mt-2 space-y-2">
-                <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Cardiology</a>
-                <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Dermatology</a>
-                <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Neurology</a>
+                <Link to="/specialties/cardiology" className="block text-gray-700 hover:text-[#09e5ab]">Cardiology</Link>
+   re             <Link to="/specialties/dermatology" className="block text-gray-700 hover:text-[#09e5ab]">Dermatology</Link>
+                <Link to="/specialties/neurology" className="block text-gray-700 hover:text-[#09e5ab]">Neurology</Link>
               </div>
             )}
           </div>
 
-          <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Doctors</a>
-          <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">Contact Us</a>
-          <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">About Us</a>
+          <Link to="/doctors" className="block text-gray-700 hover:text-[#09e5ab]">Doctors</Link>
+          <Link to="/contact" className="block text-gray-700 hover:text-[#09e5ab]">Contact Us</Link>
+          <Link to="/about" className="block text-gray-700 hover:text-[#09e5ab]">About Us</Link>
 
           <div className="pt-4 space-y-3">
             {isAuthenticated && user ? (
