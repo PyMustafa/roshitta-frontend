@@ -20,3 +20,44 @@ export const register = async (userData) => {
     throw error.response?.data || error;
   }
 };
+
+/**
+ * Request email verification code
+ * @param {string} email - User email
+ * @returns {Promise} - Response indicating success or failure
+ */
+export const requestEmailVerification = async (email) => {
+  try {
+    const response = await api.post(AUTH.EMAIL_VERIFICATION.REQUEST, { email });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * Verify email with verification code
+ * @param {string} code - Verification code
+ * @returns {Promise} - Response indicating verification status
+ */
+export const verifyEmail = async (code) => {
+  try {
+    const response = await api.post(AUTH.EMAIL_VERIFICATION.VERIFY, { verification_code: code });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * Check email verification status
+ * @returns {Promise} - Response with verification status
+ */
+export const checkEmailVerificationStatus = async () => {
+  try {
+    const response = await api.get(AUTH.EMAIL_VERIFICATION.STATUS);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

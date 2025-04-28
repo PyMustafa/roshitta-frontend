@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthGuard } from './guards/AuthGuard';
+import { EmailVerificationGuard } from './guards/EmailVerificationGuard';
 import { RoleGuard } from './guards/RoleGuard';
 import { PatientLayout } from './layouts/PatientLayout';
 
@@ -17,7 +18,13 @@ const patientRoutes = [
   {
     path: 'patient',
     element: (
-      <PatientLayout />
+      <AuthGuard>
+        <EmailVerificationGuard>
+          <RoleGuard allowedRoles={['patient']}>
+            <PatientLayout />
+          </RoleGuard>
+        </EmailVerificationGuard>
+      </AuthGuard>
     ),
     children: [
       { path: '', element: <Navigate to="dashboard" replace /> },

@@ -12,7 +12,7 @@ export const RoleGuard = ({ children, allowedRoles }) => {
   if (!isAuthenticated) return children;
 
   // Check if user role is allowed
-  if (!allowedRoles.includes(user?.role)) {
+  if (!allowedRoles.includes(user?.user_type)) {
     // Redirect based on role
     if (user?.user_type === 'doctor') {
       return <Navigate to="/doctor/dashboard" replace />;

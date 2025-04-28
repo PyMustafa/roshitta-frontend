@@ -1,6 +1,6 @@
 // Export all auth-related API functions
 import { login } from './login';
-import { register } from './register';
+import { register, requestEmailVerification, verifyEmail, checkEmailVerificationStatus } from './register';
 import { changePassword, forgotPassword, resetPassword } from './password';
 
 // Logout function
@@ -28,4 +28,7 @@ export {
   changePassword,
   forgotPassword,
   resetPassword,
+  requestEmailVerification,
+  verifyEmail,
+  checkEmailVerificationStatus,
 };
