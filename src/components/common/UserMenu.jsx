@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/Navbar/login.png';
+import { useAuth } from '../../context/auth/AuthContext';
 
 const UserMenu = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -22,11 +26,20 @@ const UserMenu = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    navigate('/auth/login');
+    setShowMenu(false);
+  };
+
+  // Determine dashboard route based on user role
+  const dashboardRoute = user?.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard';
+
   return (
     <div className="relative" ref={menuRef}>
       <button onClick={toggleMenu} className="focus:outline-none">
         <img
-          src={loginImage}
+          src={user?.profileImage || loginImage}
           alt="user avatar"
           className="w-10 h-10 rounded-full border-2 border-[#5F6FFF] object-cover"
         />
@@ -36,29 +49,39 @@ const UserMenu = () => {
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-50 text-sm">
           {/* Info section */}
           <div className="flex items-center space-x-3 px-3 py-1 bg-gray-50 rounded-[10px] mx-3 mt-3">
-
             <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
               <img
-                src={loginImage} 
+                src={user?.profileImage || loginImage}
                 alt="user"
                 className="w-10 h-10 rounded-full object-cover"
               />
             </div>
             <div>
-              <p className="text-gray-800 font-semibold">Patientdemo</p>
-              <p className="text-green-600 text-xs font-semibold">Patients</p>
+              <p className="text-gray-800 font-semibold">{user?.name || 'User'}</p>
+              <p className="text-green-600 text-xs font-semibold">{user?.role === 'doctor' ? 'Doctor' : 'Patient'}</p>
             </div>
           </div>
 
           {/* Menu items */}
           <ul className="py-2">
             <li>
-              <a
-                href="#"
+              <Link
+                to={dashboardRoute}
+                onClick={() => setShowMenu(false)}
                 className="block px-4 py-2 mx-2 rounded-md text-gray-700 transition duration-200 transform hover:text-[#09e5ab] hover:translate-x-1 hover:scale-105"
               >
                 Dashboard
-              </a>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to={user?.role === 'doctor' ? '/doctor/profile' : '/patient/settings'}
+                onClick={() => setShowMenu(false)}
+                className="block px-4 py-2 mx-2 rounded-md text-gray-700 transition duration-200 transform hover:text-[#09e5ab] hover:translate-x-1 hover:scale-105"
+              >
+                Profile Settings
+              </Link>
             </li>
 
             {/* Divider */}
@@ -68,7 +91,7 @@ const UserMenu = () => {
 
             <li>
               <button
-
+                onClick={handleLogout}
                 className="w-full text-left px-4 py-2 mx-2 rounded-md text-gray-700 transition duration-200 transform hover:text-[#09e5ab] hover:translate-x-1 hover:scale-105"
               >
                 Logout

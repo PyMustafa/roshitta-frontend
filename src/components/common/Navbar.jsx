@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FiLock } from 'react-icons/fi';
 import { FaUserPlus } from 'react-icons/fa';
-// import UserMenu from './UserMenu';
+import UserMenu from './UserMenu';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/auth/AuthContext';
 
 const Navbar = () => {
+  const { isAuthenticated, user } = useAuth();
   const [showSpecialties, setShowSpecialties] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -26,7 +29,7 @@ const Navbar = () => {
   }, [dropdownRef]);
 
   return (
-    <nav className="bg-white shadow-md py-4 px-6 fixed top-0 left-0 right-0 z-50"> 
+    <nav className="bg-white shadow-md py-4 px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -75,22 +78,26 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
-          {/* <UserMenu /> */}
-
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-sm rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white transition duration-300"
-          >
-            <FiLock className="w-5 h-5 mr-2" />
-            Login
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-sm rounded-full bg-[#5F6FFF] hover:bg-[#4a5ae8] text-white transition duration-300"
-          >
-            <FaUserPlus className="w-5 h-5 mr-2" />
-            Register
-          </a>
+          {isAuthenticated ? (
+            <UserMenu />
+          ) : (
+            <>
+              <Link
+                to="/auth/login"
+                className="flex items-center px-4 py-2 text-sm rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white transition duration-300"
+              >
+                <FiLock className="w-5 h-5 mr-2" />
+                Login
+              </Link>
+              <Link
+                to="/auth/register"
+                className="flex items-center px-4 py-2 text-sm rounded-full bg-[#5F6FFF] hover:bg-[#4a5ae8] text-white transition duration-300"
+              >
+                <FaUserPlus className="w-5 h-5 mr-2" />
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
@@ -124,22 +131,26 @@ const Navbar = () => {
           <a href="#" className="block text-gray-700 hover:text-[#09e5ab]">About Us</a>
 
           <div className="pt-4 space-y-3">
-            <UserMenu />
-
-            {/* <a
-              href="#"
-              className="flex items-center justify-center px-4 py-2 text-sm rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white"
-            >
-              <FiLock className="w-5 h-5 mr-2" />
-              Login
-            </a>
-            <a
-              href="#"
-              className="flex items-center justify-center px-4 py-2 text-sm rounded-full bg-[#5F6FFF] hover:bg-[#4a5ae8] text-white"
-            >
-              <FaUserPlus className="w-5 h-5 mr-2" />
-              Register
-            </a> */}
+            {isAuthenticated && user ? (
+              <UserMenu />
+            ) : (
+              <>
+                <Link
+                  to="/auth/login"
+                  className="flex items-center justify-center px-4 py-2 text-sm rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white"
+                >
+                  <FiLock className="w-5 h-5 mr-2" />
+                  Login
+                </Link>
+                <Link
+                  to="/auth/register"
+                  className="flex items-center justify-center px-4 py-2 text-sm rounded-full bg-[#5F6FFF] hover:bg-[#4a5ae8] text-white"
+                >
+                  <FaUserPlus className="w-5 h-5 mr-2" />
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

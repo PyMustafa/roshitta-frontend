@@ -113,7 +113,9 @@ export const AuthProvider = ({ children }) => {
 
   // Value to be provided by the context
   const value = {
+    user: currentUser,
     currentUser,
+    isAuthenticated: !!currentUser,
     isLoading,
     error,
     login,

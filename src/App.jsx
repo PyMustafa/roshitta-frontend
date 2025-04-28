@@ -1,24 +1,18 @@
 import { useState } from 'react'
 import LoginPage from './features/auth/pages/LoginPage'
 import { AuthProvider } from './context/auth/AuthContext';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
+import Router from './routes';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-
   return (
-
-    <>
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="*" element={<LoginPage />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </>
-  )
+    <BrowserRouter>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
