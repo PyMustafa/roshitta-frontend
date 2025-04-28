@@ -40,7 +40,7 @@ export const PROFILES = {
     LIST: `${API_BASE}/profiles/doctors/`,
     DETAIL: (uid) => `${API_BASE}/profiles/doctors/${uid}/`,
     ME: `${API_BASE}/profiles/doctors/me/`,
-    CLINICS: (uid) => `${API_BASE}/profiles/doctors/${uid}/clinics/`,
+    CLINICS: (id) => `${API_BASE}/profiles/doctors/${id}/clinics/`,
     MY_CLINICS: `${API_BASE}/profiles/doctors/me/clinics/`,
   },
   PATIENTS: {

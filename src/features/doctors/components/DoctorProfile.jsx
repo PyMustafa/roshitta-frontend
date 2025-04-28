@@ -42,10 +42,11 @@ export default function DoctorProfile({ doctor }) {
           </p>
 
           <p className="text-sm text-gray-600 flex items-center mt-2 bg-gray-100 p-4 rounded-md">
-            <span className="material-icons font-semibold text-gray-900 mr-2">
-              <button className=" text-sm hover:text-gray-700 text-start ">
+            <span className="material-icons text-gray-900 mr-2">
+              <button className=" text-sm font-semibold hover:text-gray-700 text-start ">
                 {doctor?.years_of_experience || "0"} Years of Experience
               </button>
+              <p>{doctor?.bio}</p>
             </span>{" "}
             <br />
           </p>

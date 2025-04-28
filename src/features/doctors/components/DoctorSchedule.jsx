@@ -1,48 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tabs from "./Taps";
 import LocationsTab from "./LocationsTab";
 import OverviewTab from "./OverviewTab";
 import Gallery from "./Gallery";
 import Reviews from "./Reviews";
-
-export default function DoctorSchedule() {
+import { getDoctorClinics } from "../../../api/profiles/doctor";
+export default function DoctorSchedule({ doctorId }) {
+  const [clinics, setClinics] = useState([]);
+  const [doctorInfo, setDoctorInfo] = useState(null); // 🆕 دكتور انفو
   const [activeTab, setActiveTab] = useState("locations");
+  const [loading, setLoading] = useState(true);
 
   const tabs = [
-    { id: "locations", label: "Locations" },
-    { id: "overview", label: "Overview" },
-    { id: "gallery", label: "Gallery" },
+    { id: "locations", label: "Clinics and Appointments" },
+    // { id: "overview", label: "Overview" },
+    { id: "gallery", label: "Blogs" },
     { id: "reviews", label: "Reviews" },
   ];
 
-  const clinics = [
-    {
-      name: "Clinic 1",
-      address: "123 Main Street, City",
-      schedule: {
-        // Tue: ["11:30", "12:00", "12:30"],
-        // Wed: ["13:00", "13:30", "14:00"],
-        // Thu: ["15:00", "15:30", "16:00"],
-        // Fri: ["17:00", "17:30", "18:00"],
-        // Sat: ["09:00", "09:30", "10:00"],
-        // Sun: ["11:00", "11:30", "12:00"],
-      },
-    },
-    {
-      name: "Clinic 2",
-      address: "456 Elm Street, City",
-      schedule: {
-        Mon: ["09:00", "09:30", "10:00"],
-        Tue: ["10:30", "11:00", "11:30"],
-        Wed: ["12:00", "12:30", "13:00"],
-        Thu: ["14:00", "14:30", "15:00"],
-        Fri: ["16:00", "16:30", "17:00"],
-        Sat: ["18:00", "18:30", "19:00"],
-        Sun: ["20:00", "20:30", "21:00"],
-      },
-    },
-  ];
-  
+  useEffect(() => {
+    const fetchClinics = async () => {
+      try {
+        const data = await getDoctorClinics(doctorId);
+        setClinics(data.results);
+        setDoctorInfo(data.results); // 🆕 تأكد إن الـ API بيرجع دكتور، أو نزبطها حسب الريسبونس
+      } catch (error) {
+        console.error("Error fetching clinics:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClinics();
+  }, [doctorId]); // حطيت doctorId هنا عشان لو اتغير
+
+  if (loading) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 m-[30px] lg:mx-[120px] mx-1 p-[50px]">
@@ -51,12 +45,19 @@ export default function DoctorSchedule() {
 
       {/* Tab Content */}
       <div className="mt-4">
-      {activeTab === "locations" && <LocationsTab clinics={clinics} />}
-      {activeTab === "overview" && <OverviewTab />}
-      {activeTab === "gallery" && <p className="text-sm text-gray-600"><Gallery/></p>}
-      {activeTab === "reviews" && <p className="text-sm text-gray-600"><Reviews/></p>}
+        {activeTab === "locations" && <LocationsTab clinics={clinics} />}
+        {activeTab === "overview" && <OverviewTab doctorInfo={doctorInfo} />}
+        {activeTab === "gallery" && (
+          <p className="text-sm text-gray-600">
+            <Gallery />
+          </p>
+        )}
+        {activeTab === "reviews" && (
+          <p className="text-sm text-gray-600">
+            <Reviews />
+          </p>
+        )}
       </div>
     </div>
   );
 }
-
