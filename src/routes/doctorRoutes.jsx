@@ -9,6 +9,7 @@ const DoctorDashboard = lazy(() => import('../features/doctors/pages/doctor-dash
 const AppointmentPage = lazy(() => import('../features/doctors/pages/AppointmentPage'));
 const ProfileSettings = lazy(() => import('../features/doctors/pages/profile-settings'));
 const DoctorProfilePage = lazy(() => import('../features/doctors/pages/DoctorProfilePage'));
+const ClinicPage = lazy(() => import('../features/doctors/pages/ClinicPage'));
 
 // Doctor routes configuration
 const doctorRoutes = [
@@ -24,6 +25,7 @@ const doctorRoutes = [
       { path: 'appointments', element: <AppointmentPage /> },
       { path: 'profile', element: <DoctorProfilePage /> },
       { path: 'settings', element: <ProfileSettings /> },
+      { path: 'clinics', element: <ClinicPage /> },
     ],
   },
 ];
