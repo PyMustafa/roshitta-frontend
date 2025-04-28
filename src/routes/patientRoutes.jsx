@@ -16,11 +16,7 @@ const patientRoutes = [
   {
     path: 'patient',
     element: (
-      <AuthGuard>
-        <RoleGuard allowedRoles={['patient']}>
           <PatientLayout />
-        </RoleGuard>
-      </AuthGuard>
     ),
     children: [
       { path: '', element: <Navigate to="dashboard" replace /> },
