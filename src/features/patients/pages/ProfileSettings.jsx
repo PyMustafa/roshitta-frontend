@@ -14,16 +14,16 @@ export const ProfileSettings = () => {
 
           <InformationSettings />
 
-          {/* <ProfilePhotoSettings /> */}
+          <ProfilePhotoSettings /> 
 
-          {/* <div className="flex justify-end mt-4">
+           <div className="flex justify-end mt-4">
             <button
               onClick={handleSaveChanges}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="bg-[#5F6fff] text-white font-medium py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Save Changes
             </button>
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>
