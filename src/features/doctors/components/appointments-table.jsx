@@ -111,9 +111,8 @@ export function AppointmentsTable() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-      <div className="p-4 md:p-6 border-b border-gray-100 flex justify-between items-center">
-        <h2 className="text-lg md:text-xl font-semibold text-gray-800">Clinics Schedule</h2>
+    <div>
+      <div className="p-4 md:p-6 flex justify-end">
         <button 
           onClick={handleAddNewClick}
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md flex items-center text-sm"
@@ -202,11 +201,10 @@ export function AppointmentsTable() {
                       name="startHour"
                       value={formData.startHour}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-200 focus:ring-opacity-25 focus:border-primary-500"
+                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-200 focus:border-blue-500"
                       required
                     />
                   </div>
-                  
                   <div>
                     <label htmlFor="endHour" className="block text-sm font-medium text-gray-700 mb-1">
                       End Hour
@@ -217,7 +215,7 @@ export function AppointmentsTable() {
                       name="endHour"
                       value={formData.endHour}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-200 focus:ring-opacity-25 focus:border-primary-500"
+                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-200 focus:border-blue-500"
                       required
                     />
                   </div>
@@ -232,14 +230,13 @@ export function AppointmentsTable() {
                     setIsEditing(false)
                     setEditingId(null)
                   }}
-                  className="mr-3 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
+                  className="mr-2 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-md"
-                  disabled={formData.day.length === 0}
+                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   {isEditing ? 'Update Schedule' : 'Save Schedule'}
                 </button>
@@ -249,7 +246,7 @@ export function AppointmentsTable() {
         </div>
       )}
 
-      <div className="md:block overflow-x-auto">
+      <div className="md:block overflow-x-auto px-4 pb-4">
         <table className="w-full">
           <thead>
             <tr className="text-left text-gray-500 text-sm border-b border-gray-100">

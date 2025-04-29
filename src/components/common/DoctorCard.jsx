@@ -4,7 +4,7 @@ const DoctorCard = ({ doctor }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/doctor-profile/${doctor.id}`); // نبعته مع الstate
+    navigate(`/doctor-profile/${doctor.id}`); // Use doctor.id instead of doctor.uid
   };
     return (
     <div 
