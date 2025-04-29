@@ -1,4 +1,4 @@
-import { LayoutDashboard, Calendar, Clock, FileText, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Calendar, Clock, Key, Settings, LogOut } from "lucide-react"
 import doctorImage from "./doctor.jpg"
 import patientSidebarBg from "./patient-sidebar-bg.jpg"
 import { NavLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="bg-white shadow-lg rounded-xl mb-4 overflow-hidden">
+    <aside className="bg-white shadow-lg rounded-xl mb-6 overflow-hidden p-4">
       <div className="flex flex-col">
         <div className="relative">
           <div className="h-37 w-full relative overflow-hidden">
@@ -119,6 +119,14 @@ export function Sidebar() {
                 Profile Settings
               </NavLink>
             </li>
+
+            <li>
+              <NavLink to="/patient/change-password" className={isActive}>
+                <Key className="w-5 h-5 mr-3" />
+                Change Password
+              </NavLink>
+            </li>
+
             <li>
               <a href="#" onClick={handleLogout} className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg">
                 <LogOut className="w-5 h-5 mr-3" />

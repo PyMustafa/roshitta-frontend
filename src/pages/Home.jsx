@@ -5,6 +5,7 @@ import SpecialtiesSection from '../components/common/SpecialtiesSection';
 import DoctorsSection from '../components/common/DoctorsSection';
 import AppointmentSection from '../components/common/AppointmentSection';
 import FeaturesSection from '../components/common/FeaturesSection';
+import Footer from '../components/common/Footer';
 
 const Home = () => {
   return (
@@ -15,7 +16,7 @@ const Home = () => {
       <DoctorsSection />
       <AppointmentSection />
       <FeaturesSection />
-      
+      <Footer />
     </div>
   );
 };

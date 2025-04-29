@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye, FaCalendarAlt, FaTag, FaDiagnoses, FaNotesMedical } from 'react-icons/fa';
+import { Tooltip } from 'react-tooltip';  
+import 'react-tooltip/dist/react-tooltip.css'; 
 
 const typeColors = {
   diagnosis: 'bg-blue-100 text-blue-800',
@@ -47,9 +49,12 @@ const MedicalHistoryCard = ({ entry }) => {
             className={`flex items-center justify-center rounded-full w-8 h-8 cursor-pointer transition-all duration-500 ${isExpanded ? 'bg-blue-100 text-blue-600 scale-110' : 'bg-gray-100 text-gray-500 hover:bg-blue-50'}`}
             onClick={toggleExpand}
             aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            data-tooltip-id="toggle-expand-tooltip" 
+            data-tooltip-content={isExpanded ? 'Collapse details' : 'Expand details'} 
           >
             <FaEye className={`text-sm transition-all duration-500 ${isExpanded ? 'rotate-180 scale-110' : ''}`} />
           </button>
+          <Tooltip id="toggle-expand-tooltip" />
         </div>
       </div>
 
@@ -57,7 +62,8 @@ const MedicalHistoryCard = ({ entry }) => {
         <div className={`pt-4 border-t border-gray-200 transition-opacity duration-500 ${isExpanded ? 'opacity-100 delay-200' : 'opacity-0'}`}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="flex items-start gap-3 transform transition-all duration-500 delay-100" style={{ transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)' }}>
-              <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" />
+              <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" data-tooltip-id="symptoms-tooltip" data-tooltip-content="Symptoms" />
+              <Tooltip id="symptoms-tooltip" />
               <div>
                 <p className="text-gray-500 text-sm">Symptoms</p>
                 <p className="font-medium text-sm">{entry.symptoms}</p>
@@ -65,7 +71,8 @@ const MedicalHistoryCard = ({ entry }) => {
             </div>
 
             <div className="flex items-start gap-3 transform transition-all duration-500 delay-150" style={{ transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)' }}>
-              <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" />
+              <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" data-tooltip-id="prescription-tooltip" data-tooltip-content="Prescription" />
+              <Tooltip id="prescription-tooltip" />
               <div>
                 <p className="text-gray-500 text-sm">Prescription</p>
                 <a
@@ -80,7 +87,8 @@ const MedicalHistoryCard = ({ entry }) => {
           </div>
 
           <div className="flex items-start gap-3 transform transition-all duration-500 delay-200" style={{ transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)' }}>
-            <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" />
+            <FaNotesMedical className="text-gray-400 text-base mt-0.5 flex-shrink-0" data-tooltip-id="notes-tooltip" data-tooltip-content="Notes" />
+            <Tooltip id="notes-tooltip" />
             <div>
               <p className="text-gray-500 text-sm">Notes</p>
               <p className="font-medium text-sm">{entry.notes}</p>

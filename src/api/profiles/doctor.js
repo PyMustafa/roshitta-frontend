@@ -65,9 +65,9 @@ export const updateMyProfile = async (data) => {
  * @param {Object} params - Pagination parameters
  * @returns {Promise} - Response with paginated clinics
  */
-export const getDoctorClinics = async (uid, params = {}) => {
+export const getDoctorClinics = async (id, params = {}) => {
   try {
-    const response = await api.get(PROFILES.DOCTORS.CLINICS(uid), { params });
+    const response = await api.get(PROFILES.DOCTORS.CLINICS(id), { params });
     return response.data;
   } catch (error) {
     throw error.response?.data || error;
