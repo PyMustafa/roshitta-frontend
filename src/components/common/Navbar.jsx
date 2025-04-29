@@ -2,15 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FiLock } from 'react-icons/fi';
 import { FaUserPlus } from 'react-icons/fa';
 import UserMenu from './UserMenu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth/AuthContext';
-import { getSpecialties } from '../../api/profiles/specialty'; // Import the API call
+import { getSpecialties } from '../../api/profiles/specialty';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
   const [showSpecialties, setShowSpecialties] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [specialties, setSpecialties] = useState([]); // State to store specialties
+  const [specialties, setSpecialties] = useState([]);
   const dropdownRef = useRef(null);
 
   const handleToggleSpecialties = () => {
@@ -23,6 +24,18 @@ const Navbar = () => {
     }
   };
 
+  // Handle specialty selection with programmatic navigation
+  const handleSpecialtyClick = (specialty) => {
+    // Close the dropdown
+    setShowSpecialties(false);
+    
+    // Navigate programmatically to ensure filter is applied
+    navigate({
+      pathname: '/doctors',
+      search: `?specialty=${encodeURIComponent(specialty.name)}`,
+    });
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -31,18 +44,18 @@ const Navbar = () => {
   }, [dropdownRef]);
 
   // Fetch specialties from the API
-useEffect(() => {
-  const fetchSpecialties = async () => {
-    try {
-      const data = await getSpecialties(); // Call the API
-      setSpecialties(Array.isArray(data) ? data : data.results || []); // <-- Fix here
-    } catch (error) {
-      console.error('Error fetching specialties:', error);
-    }
-  };
+  useEffect(() => {
+    const fetchSpecialties = async () => {
+      try {
+        const data = await getSpecialties();
+        setSpecialties(Array.isArray(data) ? data : data.results || []);
+      } catch (error) {
+        console.error('Error fetching specialties:', error);
+      }
+    };
 
-  fetchSpecialties();
-}, []);
+    fetchSpecialties();
+  }, []);
 
   return (
     <nav className="bg-white shadow-md py-4 px-6 fixed top-0 left-0 right-0 z-50">
@@ -83,13 +96,13 @@ useEffect(() => {
               <div className="absolute z-10 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
                 {specialties.length > 0 ? (
                   specialties.map((specialty) => (
-                    <Link
+                    <div
                       key={specialty.id}
-                      to={`/specialties/${specialty.id}`}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleSpecialtyClick(specialty)}
                     >
                       {specialty.name}
-                    </Link>
+                    </div>
                   ))
                 ) : (
                   <p className="px-4 py-2 text-gray-500">No specialties available</p>
@@ -103,6 +116,7 @@ useEffect(() => {
           <Link to="/about" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">About Us</Link>
         </div>
 
+        {/* Authentication links */}
         <div className="hidden md:flex items-center space-x-4">
           {isAuthenticated ? (
             <UserMenu />
