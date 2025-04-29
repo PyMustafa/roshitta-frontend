@@ -4,7 +4,7 @@ export const InformationSettings = () => {
         <h2 className="text-xl font-semibold mb-4">Information</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label> */}
             <input
               type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -12,7 +12,7 @@ export const InformationSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label> */}
             <input
               type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -20,7 +20,7 @@ export const InformationSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label> */}
             <input
               type="tel"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -28,7 +28,7 @@ export const InformationSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Email</label> */}
             <input
               type="email"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -36,7 +36,7 @@ export const InformationSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label> */}
             <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">Select Gender</option>
               <option value="male">Male</option>
@@ -44,14 +44,14 @@ export const InformationSettings = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label> */}
             <input
               type="date"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Blood Type</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Blood Type</label> */}
             <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">Select Blood Type</option>
               <option value="A+">A+</option>
@@ -65,7 +65,7 @@ export const InformationSettings = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label> */}
             <input
               type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -73,7 +73,7 @@ export const InformationSettings = () => {
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-1">Address</label> */}
             <textarea
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows={3}

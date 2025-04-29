@@ -17,7 +17,6 @@ export const ChangePasswordSettings = () => {
       <h2 className="text-xl font-semibold mb-6">Change Password</h2>
       <div className="grid grid-cols-1 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Old Password</label>
           <input
             type="password"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -25,7 +24,6 @@ export const ChangePasswordSettings = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
           <div className="relative">
             <input
               type={showPassword.new ? "text" : "password"}
@@ -36,6 +34,7 @@ export const ChangePasswordSettings = () => {
               type="button"
               className="absolute inset-y-0 right-0 pr-3 flex items-center"
               onClick={() => togglePasswordVisibility('new')}
+              title={showPassword.new ? "Hide password" : "Show password"} // هنا أضفنا الـ Tooltip
             >
               <FontAwesomeIcon 
                 icon={showPassword.new ? faEyeSlash : faEye} 
@@ -45,7 +44,6 @@ export const ChangePasswordSettings = () => {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Repeat New Password</label>
           <div className="relative">
             <input
               type={showPassword.repeat ? "text" : "password"}
@@ -56,6 +54,7 @@ export const ChangePasswordSettings = () => {
               type="button"
               className="absolute inset-y-0 right-0 pr-3 flex items-center"
               onClick={() => togglePasswordVisibility('repeat')}
+              title={showPassword.repeat ? "Hide password" : "Show password"} // وهنا كمان
             >
               <FontAwesomeIcon 
                 icon={showPassword.repeat ? faEyeSlash : faEye} 

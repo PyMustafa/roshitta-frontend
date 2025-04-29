@@ -12,7 +12,7 @@ const MedicalHistory = lazy(() => import('../features/patients/pages/MedicalHist
 // Commented out for now
 // const InvoicesPage = lazy(() => import('../features/patients/pages/InvoicesPage'));
 const ProfileSettings = lazy(() => import('../features/patients/pages/ProfileSettings'));
-
+const ChangePassword = lazy(() => import('../features/patients/pages/ChangePasswordPage'));
 // Patient routes configuration
 const patientRoutes = [
   {
@@ -34,6 +34,8 @@ const patientRoutes = [
       // Commented out invoices page for now
       // { path: 'invoices', element: <InvoicesPage /> },
       { path: 'settings', element: <ProfileSettings /> },
+      { path: 'change-password', element: <ChangePassword /> },
+
     ],
   },
 ];
