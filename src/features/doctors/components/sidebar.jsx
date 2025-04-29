@@ -1,10 +1,17 @@
-import { LayoutDashboard, Calendar, Clock, MessageSquare, Settings, Menu, X, BookOpen, FileText, Building2 } from "lucide-react"
-import doctorImage from "./doctor.jpg"
+import { LayoutDashboard, Calendar, Settings, Building2, Users } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
+import { useAuth } from "../../../context/auth/AuthContext"
+import Avatar from "../../../components/common/Avatar"
 
 export function Sidebar() {
   const location = useLocation();
   const path = location.pathname;
+  const { currentUser } = useAuth();
+  
+  // Format the doctor name
+  const doctorName = currentUser 
+    ? `Dr ${currentUser.first_name || ''} ${currentUser.last_name || ''}`
+    : 'Doctor';
 
   return (
     <>
@@ -111,16 +118,14 @@ export function Sidebar() {
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-35 h-35 rounded-full border-4 border-white overflow-hidden -mt-12 mb-4 z-10">
-                <img
-                  src={doctorImage}
-                  alt="Doctor profile"
-                  width={250}
-                  height={250}
-                  className="object-cover"
+              <div className="flex items-center justify-center rounded-full overflow-hidden border-4 border-white w-24 h-24 -mt-12 mb-4 z-10 p-0.5 bg-white">
+                <Avatar
+                  src={currentUser?.profile_image || currentUser?.profile_picture || currentUser?.avatar || currentUser?.photo}
+                  alt={doctorName}
+                  size={84}
                 />
               </div>
-              <h2 className="text-xl font-semibold">Dr Darren Elder</h2>
+              <h2 className="text-xl font-semibold">{doctorName}</h2>
               <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-xs text-blue-600 bg-blue-100">
                 <span className="mr-1 h-2 w-2 rounded-full bg-blue-600"></span>
                 Doctor
@@ -158,9 +163,22 @@ export function Sidebar() {
               </li>
               <li>
                 <Link 
+                  to="/doctor/patients" 
+                  className={`flex items-center px-4 py-3 rounded-md ${
+                    path.includes('/doctor/patients') 
+                    ? 'text-white bg-blue-500' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <Users className="w-5 h-5 mr-3" />
+                  My Patients
+                </Link>
+              </li>
+              <li>
+                <Link 
                   to="/doctor/clinics" 
                   className={`flex items-center px-4 py-3 rounded-md ${
-                    path.includes('/doctor/clinics') 
+                    path.includes('/doctor/clinics') && !path.includes('/doctor/clinics/schedule')
                     ? 'text-white bg-blue-500' 
                     : 'text-gray-700 hover:bg-gray-100'
                   }`}
@@ -171,28 +189,15 @@ export function Sidebar() {
               </li>
               <li>
                 <Link 
-                  to="/doctor/timings" 
+                  to="/doctor/clinics/schedule" 
                   className={`flex items-center px-4 py-3 rounded-md ${
-                    path.includes('/doctor/timings') 
+                    path.includes('/doctor/clinics/schedule') 
                     ? 'text-white bg-blue-500' 
                     : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  <Clock className="w-5 h-5 mr-3" />
-                  Available Timings
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/doctor/messages" 
-                  className={`flex items-center px-4 py-3 rounded-md ${
-                    path.includes('/doctor/messages') 
-                    ? 'text-white bg-blue-500' 
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <MessageSquare className="w-5 h-5 mr-3" />
-                  Messages
+                  <Calendar className="w-5 h-5 mr-3" />
+                  Clinic Schedules
                 </Link>
               </li>
               <li>
@@ -208,36 +213,10 @@ export function Sidebar() {
                   Profile Settings
                 </Link>
               </li>
-              <li>
-                <Link 
-                  to="/doctor/specialties" 
-                  className={`flex items-center px-4 py-3 rounded-md ${
-                    path.includes('/doctor/specialties') 
-                    ? 'text-white bg-blue-500' 
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <BookOpen className="w-5 h-5 mr-3" />
-                  Specialties & Services
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/doctor/articles" 
-                  className={`flex items-center px-4 py-3 rounded-md ${
-                    path.includes('/doctor/articles') 
-                    ? 'text-white bg-blue-500' 
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <FileText className="w-5 h-5 mr-3" />
-                  Manage Article
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>
       </aside>
     </>
-  )
+  );
 }

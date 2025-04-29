@@ -17,13 +17,30 @@ export const getPatients = async (params = {}) => {
 };
 
 /**
- * Get patient profile by UID
- * @param {string} uid - Patient UID
+ * Get patients for the authenticated doctor
+ * This is used to get total count of patients associated with a doctor
+ * @param {Object} params - Query parameters
+ * @returns {Promise} - Response with paginated patients
+ */
+export const getMyDoctorPatients = async (params = {}) => {
+  try {
+    const response = await api.get(PROFILES.PATIENTS.LIST, { 
+      params: { ...params, doctor: 'me' } 
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * Get patient profile by ID
+ * @param {string|number} id - Patient ID
  * @returns {Promise} - Response with patient profile
  */
-export const getPatientProfile = async (uid) => {
+export const getPatientProfile = async (id) => {
   try {
-    const response = await api.get(PROFILES.PATIENTS.DETAIL(uid));
+    const response = await api.get(PROFILES.PATIENTS.DETAIL(id));
     return response.data;
   } catch (error) {
     throw error.response?.data || error;

@@ -4,9 +4,8 @@ import { AUTH } from '../endpoints';
 /**
  * Change user password
  * @param {Object} passwordData - Password data
- * @param {string} passwordData.current_password - Current password
+ * @param {string} passwordData.old_password - Current password
  * @param {string} passwordData.new_password - New password
- * @param {string} passwordData.confirm_password - Confirm new password
  * @returns {Promise} - Response from the API
  */
 export const changePassword = async (passwordData) => {

@@ -35,7 +35,7 @@ export default function DoctorProfilePage() {
   return (
     <>
       <DoctorProfile doctor={doctor} />
-      <DoctorSchedule doctorId={doctorId} />
+      <DoctorSchedule doctorId={doctor.id} />
     </>
   );
 }

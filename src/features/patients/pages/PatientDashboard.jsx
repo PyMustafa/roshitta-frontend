@@ -54,7 +54,7 @@ function PatientDashboard() {
         const pending = allAppts.filter(app => ['pending', 'confirmed'].includes(app.status)).length;
 
         // Get unique doctors
-        const uniqueDoctors = new Set(allAppts.map(app => app.doctor?.uid)).size;
+        const uniqueDoctors = new Set(allAppts.map(app => app.doctor?.id)).size;
 
         setStats({
           totalAppointments: allAppts.length,
