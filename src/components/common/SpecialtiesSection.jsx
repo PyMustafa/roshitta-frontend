@@ -52,7 +52,7 @@ const SpecialtyCard = ({ id, name, doctors_count, image, icon }) => {
 
   return (
     <div className="flex flex-col items-center px-1.5 md:px-2">
-      <div 
+      <div
         onClick={handleSpecialtyClick}
         className="w-full cursor-pointer"
       >
@@ -75,7 +75,7 @@ const SpecialtyCard = ({ id, name, doctors_count, image, icon }) => {
       </div>
       <div className="mt-3 text-center px-1">
         <h3 className="text-sm md:text-base font-bold text-gray-900">
-          <div 
+          <div
             onClick={handleSpecialtyClick}
             className="hover:text-[#09e5ab] transition-colors cursor-pointer"
           >

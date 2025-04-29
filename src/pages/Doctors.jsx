@@ -27,30 +27,30 @@ const Doctors = () => {
     gender: queryParams.get('gender') || '',
     location: queryParams.get('location') || ''
   };
-  
+
   const [filters, setFilters] = useState(initialFilters);
-  
+
   // Fetch doctors whenever filters change
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         setLoading(true);
         const params = {};
-        
+
         if (filters.search) params.search = filters.search;
         if (filters.specialty) params.specialty__name = filters.specialty;
         if (filters.gender) params.gender = filters.gender;
-        
+
         console.log("Fetching doctors with params:", params);
         const data = await getDoctors(params);
         let filteredDoctors = data.results || [];
-        
+
         if (filters.location) {
           filteredDoctors = filteredDoctors.filter(doctor =>
             Array.isArray(doctor.clinics) && doctor.clinics.some(clinic => clinic.city === filters.location)
           );
         }
-        
+
         setDoctors(filteredDoctors);
         setCurrentPage(1);
       } catch (err) {
@@ -60,7 +60,7 @@ const Doctors = () => {
         setLoading(false);
       }
     };
-    
+
     fetchDoctors();
   }, [filters]);
 
@@ -77,7 +77,7 @@ const Doctors = () => {
       isUrlUpdate.current = false;
       return;
     }
-    
+
     const queryParams = new URLSearchParams(location.search);
     const newFilters = {
       search: queryParams.get('search') || '',
@@ -88,7 +88,7 @@ const Doctors = () => {
 
     // Deep comparison
     const filtersChanged = JSON.stringify(newFilters) !== JSON.stringify(filters);
-    
+
     if (filtersChanged) {
       setFilters(newFilters);
     }
@@ -100,18 +100,18 @@ const Doctors = () => {
     if (isInitialMount.current) {
       return;
     }
-    
+
     const queryParams = new URLSearchParams();
-    
+
     // Only add non-empty values
     if (filters.specialty) queryParams.set('specialty', filters.specialty);
     if (filters.search) queryParams.set('search', filters.search);
     if (filters.gender) queryParams.set('gender', filters.gender);
     if (filters.location) queryParams.set('location', filters.location);
-    
+
     const queryString = queryParams.toString();
     const currentQueryString = location.search.replace('?', '');
-    
+
     // Only update URL if the query parameters have changed
     if (queryString !== currentQueryString) {
       // Flag that we're updating the URL ourselves
