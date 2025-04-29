@@ -38,14 +38,14 @@ export const APPOINTMENTS = {
 export const PROFILES = {
   DOCTORS: {
     LIST: `${API_BASE}/profiles/doctors/`,
-    DETAIL: (uid) => `${API_BASE}/profiles/doctors/${uid}/`,
+    DETAIL: (id) => `${API_BASE}/profiles/doctors/${id}/`,
     ME: `${API_BASE}/profiles/doctors/me/`,
-    CLINICS: (uid) => `${API_BASE}/profiles/doctors/${uid}/clinics/`,
+    CLINICS: (id) => `${API_BASE}/profiles/doctors/${id}/clinics/`,
     MY_CLINICS: `${API_BASE}/profiles/doctors/me/clinics/`,
   },
   PATIENTS: {
     LIST: `${API_BASE}/profiles/patients/`,
-    DETAIL: (uid) => `${API_BASE}/profiles/patients/${uid}/`,
+    DETAIL: (id) => `${API_BASE}/profiles/patients/${id}/`,
     ME: `${API_BASE}/profiles/patients/me/`,
   },
   SPECIALTIES: `${API_BASE}/profiles/specialties/`,

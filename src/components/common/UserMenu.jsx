@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import loginImage from '../../assets/Navbar/login.png';
 import { useAuth } from '../../context/auth/AuthContext';
+import Avatar from './Avatar';
 
 const UserMenu = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -33,15 +33,16 @@ const UserMenu = () => {
   };
 
   // Determine dashboard route based on user role
-  const dashboardRoute = user?.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard';
+  const dashboardRoute = currentUser?.user_type === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard';
 
   return (
     <div className="relative" ref={menuRef}>
       <button onClick={toggleMenu} className="focus:outline-none">
-        <img
-          src={user?.profileImage || loginImage}
-          alt="user avatar"
-          className="w-10 h-10 rounded-full border-2 border-[#5F6FFF] object-cover"
+        <Avatar 
+          src={currentUser?.profile_image || currentUser?.profile_picture} 
+          alt={currentUser?.first_name || 'User'}
+          size={40}
+          className="border-2 border-[#5F6FFF]"
         />
       </button>
 
@@ -49,16 +50,18 @@ const UserMenu = () => {
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-50 text-sm">
           {/* Info section */}
           <div className="flex items-center space-x-3 px-3 py-1 bg-gray-50 rounded-[10px] mx-3 mt-3">
-            <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-              <img
-                src={user?.profileImage || loginImage}
-                alt="user"
-                className="w-10 h-10 rounded-full object-cover"
-              />
-            </div>
+            <Avatar 
+              src={currentUser?.profile_image || currentUser?.profile_picture} 
+              alt={currentUser?.first_name || 'User'}
+              size={48}
+            />
             <div>
-              <p className="text-gray-800 font-semibold">{user?.name || 'User'}</p>
-              <p className="text-green-600 text-xs font-semibold">{user?.role === 'doctor' ? 'Doctor' : 'Patient'}</p>
+              <p className="text-gray-800 font-semibold">
+                {currentUser ? `${currentUser.first_name || ''} ${currentUser.last_name || ''}` : 'User'}
+              </p>
+              <p className="text-green-600 text-xs font-semibold">
+                {currentUser?.user_type === 'doctor' ? 'Doctor' : 'Patient'}
+              </p>
             </div>
           </div>
 
@@ -76,7 +79,7 @@ const UserMenu = () => {
 
             <li>
               <Link
-                to={user?.role === 'doctor' ? '/doctor/profile' : '/patient/settings'}
+                to={currentUser?.user_type === 'doctor' ? '/doctor/settings' : '/patient/settings'}
                 onClick={() => setShowMenu(false)}
                 className="block px-4 py-2 mx-2 rounded-md text-gray-700 transition duration-200 transform hover:text-[#09e5ab] hover:translate-x-1 hover:scale-105"
               >

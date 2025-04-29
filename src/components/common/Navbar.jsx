@@ -103,6 +103,104 @@ useEffect(() => {
           <Link to="/about" className="text-gray-700 hover:text-[#09e5ab] transition duration-300">About Us</Link>
         </div>
 
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white shadow-md mt-0.5 py-2 px-4 md:hidden z-50">
+            <div className="flex flex-col space-y-3">
+              <Link 
+                to="/" 
+                className="text-gray-700 hover:text-[#09e5ab] py-2 border-b border-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              
+              <div className="py-2 border-b border-gray-100">
+                <button
+                  onClick={handleToggleSpecialties}
+                  className="w-full text-left text-gray-700 hover:text-[#09e5ab] flex items-center justify-between"
+                >
+                  Specialties
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={showSpecialties ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                  </svg>
+                </button>
+                
+                {showSpecialties && (
+                  <div className="mt-2 pl-4">
+                    {specialties.length > 0 ? (
+                      specialties.map((specialty) => (
+                        <Link
+                          key={specialty.id}
+                          to={`/specialties/${specialty.id}`}
+                          className="block py-1.5 text-gray-700 hover:text-[#09e5ab]"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {specialty.name}
+                        </Link>
+                      ))
+                    ) : (
+                      <p className="py-1.5 text-gray-500">No specialties available</p>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              <Link 
+                to="/doctors" 
+                className="text-gray-700 hover:text-[#09e5ab] py-2 border-b border-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Doctors
+              </Link>
+              
+              <Link 
+                to="/contact" 
+                className="text-gray-700 hover:text-[#09e5ab] py-2 border-b border-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact Us
+              </Link>
+              
+              <Link 
+                to="/about" 
+                className="text-gray-700 hover:text-[#09e5ab] py-2 border-b border-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About Us
+              </Link>
+              
+              {/* Auth buttons for mobile */}
+              <div className="flex flex-col space-y-2 py-2">
+                {isAuthenticated ? (
+                  <div className="py-2">
+                    <UserMenu />
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      to="/auth/login"
+                      className="flex items-center justify-center px-4 py-2 rounded-full bg-[#09e5ab] hover:bg-[#07c797] text-white"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <FiLock className="w-5 h-5 mr-2" />
+                      Login
+                    </Link>
+                    <Link
+                      to="/auth/register"
+                      className="flex items-center justify-center px-4 py-2 rounded-full bg-[#5F6FFF] hover:bg-[#4a5ae8] text-white"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <FaUserPlus className="w-5 h-5 mr-2" />
+                      Register
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="hidden md:flex items-center space-x-4">
           {isAuthenticated ? (
             <UserMenu />

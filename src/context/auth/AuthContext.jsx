@@ -58,7 +58,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('accessToken', response.tokens.access);
       localStorage.setItem('refreshToken', response.tokens.refresh);
       localStorage.setItem('user', JSON.stringify(response.user));
-      console.log(' data:', response);
 
       // Update state with user info
       setCurrentUser(response.user);
@@ -168,6 +167,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Helper function to ensure consistent structure between login and profile updates
+  const ensureConsistentUserStructure = (profileData) => {
+    if (!currentUser) return profileData;
+    
+    // Return data in the format expected by the sidebar component
+    return {
+      ...currentUser,
+      profile_image: profileData.profile_image,
+      // Add any other fields that need to be updated here
+    };
+  };
+
   // Value to be provided by the context
   const value = {
     user: currentUser,
@@ -181,6 +192,11 @@ export const AuthProvider = ({ children }) => {
     register,
     verifyEmail,
     requestVerificationCode,
+    updateUserData: (newData) => {
+      const updatedUser = ensureConsistentUserStructure({ ...currentUser, ...newData });
+      setCurrentUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { CLINICS } from '../endpoints';
  * Get all working hours with optional filters
  * @param {Object} params - Query parameters
  * @param {number} params.clinic - Filter by clinic ID
- * @param {string} params.day - Filter by day of week
+ * @param {number} params.day_of_week - Filter by day of week (0-6, where 0 is Monday)
  * @returns {Promise} - Response with paginated working hours
  */
 export const getWorkingHours = async (params = {}) => {
@@ -50,9 +50,9 @@ export const getClinicWorkingHours = async (clinicId, params = {}) => {
  * Create working hours for a clinic
  * @param {Object} data - Working hours data
  * @param {number} data.clinic - Clinic ID
- * @param {string} data.day - Day of week
- * @param {string} data.start_time - Start time
- * @param {string} data.end_time - End time
+ * @param {number} data.day_of_week - Day of week (0-6, where 0 is Monday)
+ * @param {string} data.start_time - Start time (HH:MM:SS)
+ * @param {string} data.end_time - End time (HH:MM:SS)
  * @param {boolean} data.is_active - Status of working hours
  * @returns {Promise} - Response with created working hours
  */

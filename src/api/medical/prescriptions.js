@@ -32,6 +32,38 @@ export const getPrescription = async (id) => {
 };
 
 /**
+ * Get prescription by patient ID
+ * @param {number} patientId - Patient ID
+ * @returns {Promise} - Response with prescription details
+ */
+export const getPrescriptionByPatient = async (patientId) => {
+  try {
+    // First get all prescriptions for this patient
+    const response = await getPrescriptions({ patient: patientId });
+    
+    // Return the latest prescription (assuming sorted by date)
+    if (response.results && response.results.length > 0) {
+      const latestPrescription = response.results[0];
+      
+      // Get the full prescription details including medicines
+      const fullPrescription = await getPrescription(latestPrescription.id);
+      
+      // Get medicines for this prescription
+      const medicines = await getPrescriptionMedicines(latestPrescription.id);
+      
+      return {
+        ...fullPrescription,
+        medicines: medicines.results || []
+      };
+    }
+    
+    return null;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
  * Create a new prescription
  * @param {Object} data - Prescription data
  * @param {number} data.patient - Patient ID
