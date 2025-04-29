@@ -28,7 +28,7 @@ const Navbar = () => {
   const handleSpecialtyClick = (specialty) => {
     // Close the dropdown
     setShowSpecialties(false);
-
+    
     // Navigate programmatically to ensure filter is applied
     navigate({
       pathname: '/doctors',
@@ -60,9 +60,11 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md py-4 px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo with home link */}
         <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-[#4a5ae8]">Roshitta</h1>
+          <Link to="/" className="text-2xl font-bold text-[#4a5ae8] hover:text-[#09e5ab] transition duration-300">
+            Roshitta
+          </Link>
         </div>
 
         {/* Mobile menu toggle button */}
